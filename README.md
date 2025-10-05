@@ -66,15 +66,16 @@ This generates the .bw files of gene expression for the corresponding sample.
 
 Find Arabidopsis Fiber FIRE Peaks
 
-1. Run `FIRE_Peak_UpStream.sh`, e.g.:  
-     ```bash
-     sh FIRE_Peak_UpStream.sh 'sample1 sample2'
+1. Run `FIRE_Peak_UpStream.sh`, e.g.: 
 
-            (Requires the Peak_Diff_V1.R file and should be run in the base environment.)
+         ```bash
+             sh FIRE_Peak_UpStream.sh 'sample1 sample2'
 
-            #### Each p-value will generate two files, with intervals of 0.05 :
+     (Requires the Peak_Diff_V1.R file and should be run in the base environment.)
 
-             BED files of the upregulated and downregulated peaks in the two samples
+    #### Each p-value will generate two files, with intervals of 0.05 :
+
+   BED files of the upregulated and downregulated peaks in the two samples
 
 2. Run `Fiber_peak_diffbind_V1.R` (use `--help` to view the help information)  
 
