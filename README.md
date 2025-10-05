@@ -72,17 +72,15 @@ Find Arabidopsis Fiber FIRE Peaks
 
 (Requires the Peak_Diff_V1.R file and should be run in the base environment.)
 
-#### Each p-value will generate four files, with intervals of 0.05 as follow :
+#### Each p-value will generate two files, with intervals of 0.05 :
 
-①  Merged peaks of the two samples
-
-②  _raw_counts.txt file
-
-③  BED files of the upregulated and downregulated peaks in the two samples
+ BED files of the upregulated and downregulated peaks in the two samples
 
 2. Run `Fiber_peak_diffbind_V1.R` (use `--help` to view the help information)  
 
 It is generally recommended to use this script when there are more than three samples.
+
+This will generate clustering heatmaps and boxplots based on z-scores.
 
 
 ## Genome Assembly Workflow
