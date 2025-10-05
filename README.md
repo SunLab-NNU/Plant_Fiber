@@ -70,11 +70,11 @@ Find Arabidopsis Fiber FIRE Peaks
      ```bash
      sh FIRE_Peak_UpStream.sh 'sample1 sample2'
 
-    (Requires the Peak_Diff_V1.R file and should be run in the base environment.)
+            (Requires the Peak_Diff_V1.R file and should be run in the base environment.)
 
-    #### Each p-value will generate two files, with intervals of 0.05 :
+            #### Each p-value will generate two files, with intervals of 0.05 :
 
-     BED files of the upregulated and downregulated peaks in the two samples
+             BED files of the upregulated and downregulated peaks in the two samples
 
 2. Run `Fiber_peak_diffbind_V1.R` (use `--help` to view the help information)  
 
