@@ -1,6 +1,6 @@
 # Plant Fiber Project
 
-## All Conda virtual environment YAML files have been uploaded.
+## All Conda virtual environment YAML files have been uploaded envs folder.
 
 ## Fiber-seq Analysis Workflow
 
@@ -104,6 +104,5 @@ This generates the genome assembled from the input BAM file, as well as visualiz
 `Venn_Pvalue.R` can be used to obtain the overlap between two BED files.
 
 
-## WGBS
 
 
