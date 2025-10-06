@@ -1,11 +1,3 @@
-#!/bin/bash
-#SBATCH --job-name=Zea_ChIP
-#SBATCH --partition=tcum256c128Partition
-#SBATCH --nodes=1
-#SBATCH --ntasks-per-node=40
-#SBATCH --error=DBL_2024.9.16_HS-_%j.err
-#SBATCH --output=DBL_2024.9.16_HS-_%j.out
-
 input="${1}"
 hao="${2}"
 for sample in $(find . -name "${2}*_R1.fq.gz")
