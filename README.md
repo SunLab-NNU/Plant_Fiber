@@ -85,7 +85,7 @@ When you want to process the files `sample_R1.fq.gz` and `sample_R2.fq.gz`
 
 🔹 Example: Maize B73 Command
     
-        sbatch B73_RNAseq.sh date sample
+        sbatch RNA-seq_Zeamays_B73.sh date sample
 
 This generates the .bw files of gene expression for the corresponding sample.
 
