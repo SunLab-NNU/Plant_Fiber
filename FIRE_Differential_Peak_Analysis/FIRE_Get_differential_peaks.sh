@@ -1,19 +1,3 @@
-#!/bin/bash
-#sBATCH --job-name=test
-#SBATCH --partition=gpuh202t112c
-#SBATCH --nodes=1
-#SBATCH --ntasks-per-node=40
-#SBATCH --error=test_%j.err
-#SBATCH --output=test_%j.out
-
-# 样本列表，每个样$1本对应两条重复
-#samples=(
-#"D1L-wt"
-#"D24L-wt"
-#"D6L-wt"
-#"D-wt"
-#"L-wt"
-#)
 source ~/.bashrc
 conda init
 conda activate chip
