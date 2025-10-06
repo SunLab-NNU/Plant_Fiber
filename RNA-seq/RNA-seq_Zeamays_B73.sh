@@ -1,11 +1,3 @@
-#!/bin/bash
-#SBATCH --job-name=B73_RNAseq
-#SBATCH --partition=m256Partition
-#SBATCH --nodes=1
-#SBATCH --ntasks-per-node=40
-#SBATCH --error=test_%j.err
-#SBATCH --output=test_%j.out
-
 input="${1}"
 SAMPLE_NAME="${2}"
 
