@@ -31,7 +31,7 @@ This generates a series of files, mainly including:
 <br>
 <br>
 
-## Fiber-seq differential analysis workflow
+## Fiber-seq differential peaks analysis workflow
 
 ### 1. Run `FIRE_Get_differential_peaks.sh`:
    
