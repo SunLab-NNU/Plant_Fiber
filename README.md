@@ -48,7 +48,7 @@ This generates a series of files, mainly including:
 <br>
 <br>
 
-### 2. Run `Fiber_peak_diffbind_V1.R` (use `--help` to view the help information)  
+### 2. Run `FIRE_Differentail_Peak_visualization.R` (use `--help` to view the help information)  
 
 It is generally recommended to use this script when there are more than three samples.
 
