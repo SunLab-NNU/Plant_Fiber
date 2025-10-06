@@ -33,7 +33,7 @@ suppressWarnings(suppressPackageStartupMessages({
 
 suppressMessages(loadfonts())
 
-# 设置工作目录和主题
+
 setwd(getwd()) 
 source("./RNA_Seq_Ara/theme_linhua.R")
 
@@ -50,7 +50,7 @@ theme_update(
   aspect.ratio = 1
 )
 
-# 解析命令行参数
+
 args <- commandArgs(trailingOnly = TRUE)
 
 if (length(args) < 3) {
@@ -59,19 +59,19 @@ if (length(args) < 3) {
 }
 
 input_file <- args[1]
-A <- args[2]  # Control组
-B <- args[3]  # Treat组
+A <- args[2] 
+B <- args[3]
 
-# 主分析函数
+
 run_analysis <- function(input_file, A, B) {
-  # 读取数据
+
   heat_fc <- fread(input_file, select = c(1, seq(2, 7)), skip = 1)
   colnames(heat_fc) <- c("seqnames", "start", "end", paste0(A, "-1"), paste0(A, "-2"), paste0(B, "-1"), paste0(B, "-2"))
   
   heat_fc$ID <- paste0("peak", 1:nrow(heat_fc))
   heat_fc_df <- as.data.frame(heat_fc)
   
-  # 准备计数数据
+
   count_data <- heat_fc_df[, 4:7]
   rownames(count_data) <- heat_fc$ID
   
@@ -80,13 +80,13 @@ run_analysis <- function(input_file, A, B) {
     return(x) 
   })
   
-  # 样本信息
+
   sample_info <- data.frame(
     row.names = colnames(count_data),
     condition = factor(rep(c(A, B), each = 2), levels = c(A, B))
   )
   
-  # DESeq2分析
+
   dds <- DESeqDataSetFromMatrix(
     countData = round(count_data), 
     colData = sample_info, 
@@ -95,7 +95,7 @@ run_analysis <- function(input_file, A, B) {
   dds <- DESeq(dds)
   res <- results(dds, contrast = c("condition", B, A))
   
-  # 结果处理
+
   T_VS_C <- as.data.table(as.data.frame(res), keep.rownames = "ID")[
     , "direction" := "NoChange"
   ][
@@ -105,7 +105,7 @@ run_analysis <- function(input_file, A, B) {
   merged_data <- left_join(T_VS_C, heat_fc_df, by = "ID") %>% as.data.table()
 
 for (C in seq(0.05, 1, by = 0.05)) {
-  merged_data[, direction := NA_character_]  # 清空上次的结果
+  merged_data[, direction := NA_character_] 
   merged_data[pvalue < C & log2FoldChange > 1, direction := "Up"]
   merged_data[pvalue < C & log2FoldChange < -1, direction := "Down"]
 
@@ -124,5 +124,5 @@ fwrite(down_peaks, file.path("Pvalue_C_DiffPeak", paste0("P", C_label, "_", outp
 
 }
 
-# 运行分析
+
 run_analysis(input_file, A, B)
