@@ -5,7 +5,7 @@ date=${1}
 sample=${2}
 ID=$(basename ${sample} .bam)
 
-# 创建输出目录
+
 output_dir=${date}_${ID}
 mkdir -p "${output_dir}"
 
@@ -13,16 +13,16 @@ genome=/home/cxshnl/Data/geneome/Tair10_Chr/Tair.genome.fa
 index=/home/cxshnl/Data/geneome/Tair10_Chr/Tair_Pacbio.mmi
 gene_bed6=/home/cxshnl/Data/geneome/Tair10_Chr/Tair_gene_6c.bed
 len=/home/cxshnl/Data/geneome/Tair10_Chr/Tair.genome
-# 执行 pbmm2 align质控--------------------------------------------------------------------------------------------------------
-#pbmm2 align -j 52 --log-level INFO --sort ${index} ${sample} ${output_dir}/${ID}_mapped.bam 2> ${output_dir}/${ID}.log
-#samtools view ${sample} | wc -l >> ${output_dir}/${ID}.log
+#--------------------------------------------------------------------------------------------------------
+pbmm2 align -j 52 --log-level INFO --sort ${index} ${sample} ${output_dir}/${ID}_mapped.bam 2> ${output_dir}/${ID}.log
+samtools view ${sample} | wc -l >> ${output_dir}/${ID}.log
 
 ##--------------------------------------------------------------------------------------------------------
 total_length=$(samtools stats "${sample}" | grep "total length" | awk '{print $4}')
 genome_size=$(seqkit stat ${genome} | awk 'NR==2 {gsub(/,/, "", $5); print $5}')
 coverage=$(echo "scale=2; $total_length / $genome_size" | bc)
-echo "${sample}: 总碱基数=${total_length} bp" >> ${output_dir}/${ID}.log
-echo "测序深度=${coverage}X" >> ${output_dir}/${ID}.log
+echo "${sample}: Total bases=${total_length} bp" >> ${output_dir}/${ID}.log
+echo "depth=${coverage}X" >> ${output_dir}/${ID}.log
 
 ##----------------------------------------------------------------------------------------------------
 #samtools view -h -@ 32 ${sample} | awk '{len = length($10); count[len]++} END {for (l in count) print l, count[l]}' > ${output_dir}/${ID}_length.bed
@@ -92,7 +92,7 @@ conda activate chip
 bw_files=$(find . -name "*bw" | sort)
 for bw in ${bw_files}; do
   label=$(basename ${bw} | sed 's/.bw//g')
-  echo "正在处理: ${label}"
+  echo "${label}"
 
   computeMatrix scale-regions \
     -S ${bw} \
@@ -102,7 +102,7 @@ for bw in ${bw_files}; do
     --afterRegionStartLength 3000 \
     --skipZeros \
     -p 52 \
-    -o ${ID}_${label}.gz  # 添加标签到输出文件名
+    -o ${ID}_${label}.gz 
 
   plotHeatmap -m ${ID}_${label}.gz \
               --plotFileFormat svg \
@@ -112,4 +112,3 @@ for bw in ${bw_files}; do
 
 done
 
-echo "所有文件处理完成！"
