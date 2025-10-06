@@ -1,5 +1,3 @@
-
-
 input="${1}"
 hao="${2}"
 cd /home/cxshnl/ChIP-Mapping
