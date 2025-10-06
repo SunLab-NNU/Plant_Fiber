@@ -98,7 +98,7 @@ Activate the Assembly virtual environment
 Run the script:
 
    
-        sh Assemble_nohic.sh 251005 Control.fa sample.bam 
+        sh Genome_assembly_pipeline.sh data Control.fa sample.bam 
 
 This generates the genome assembled from the input BAM file, as well as visualization plots comparing the newly assembled genome with the reference genome.
 
