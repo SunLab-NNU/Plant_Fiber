@@ -69,10 +69,10 @@ option_list <- list(
   make_option(c("-o", "--output"), type = "character", default = "Heatmap.pdf",
               help = "Output PDF filename [default: %default]")
 )
-# 解析参数
+
 opt <- parse_args(OptionParser(option_list = option_list))
 
-# 检查必要参数
+
 if (is.null(opt$file)) {
   stop("Required arguments missing! Usage:
        Rscript script.R -f <file.bed> -c <number> -s \"3,4,1,2,5\" [-o output.pdf]", 
@@ -111,20 +111,14 @@ ExCPM <- edgeR::cpm(count_data)
 colnames(ExCPM) <- paste0(colnames(ExCPM), ".cpm")
 
 
-##计算cpm平均值，并添加到列的最后-----------------------------------------------------------------------------------------------
-#报错：
-#如果你的 ExCPM 是 data.table 类型（不是标准 data.frame），直接按列选择时可能会返回向量。#
-#解决方法：
-#用 .. 或 with=FALSE 显式指定列：
 
-prefixes <- c()  # 用来保存所有前缀
+prefixes <- c() 
 ExCPM <- as.data.frame(ExCPM)
 for (i in seq(1, col_count-3, by = 2)) {
   if (i + 1 <= col_count) {
     col1 <- colnames(ExCPM)[i]
     col2 <- colnames(ExCPM)[i + 1]
     
-    # 提取公共前缀（含最后一个 "-" 前的部分）
     max_common <- ""
     for (j in seq_len(min(nchar(col1), nchar(col2)))) {
       if (substr(col1, j, j) == substr(col2, j, j)) {
@@ -134,7 +128,7 @@ for (i in seq(1, col_count-3, by = 2)) {
       }
     }
     
-    # 取到最后一个 "-"
+
     if (grepl("-", max_common)) {
       dash_pos <- max(gregexpr("-", max_common)[[1]])
       common_prefix <- substr(max_common, 1, dash_pos)
@@ -149,7 +143,7 @@ for (i in seq(1, col_count-3, by = 2)) {
   }
 }
 
-##添加loge列------------------------------------------------------------------------------------------------
+
 
 mean_col <- colnames(ExCPM %>%select(contains("mean")))
 
@@ -160,7 +154,7 @@ Fiber_log2 <- ExCPM %>%
     .names = "{.col}_log2"
   ))
 
-#添加zscore列-----------------------------------------------------------------------------------------------------------
+
 mean_log2_col <- colnames(Fiber_log2 %>% select(contains("log2")))
 
 #input <- paste(mean_log2_col, collapse = ", ")
@@ -178,7 +172,7 @@ setnames(as.data.frame(Fiber_zscore), colnames(Fiber_zscore), sign)
 #Fiber_zscore <- as.data.frame(Fiber_zscore)
 #rownames(Fiber_zscore) <- Fiber_zscore$ID
 #Fiber_zscore$ID <- NULL
-##得到热图---------------------------------------------------------------------------------------------------------------
+
 mat <- as.matrix(Fiber_zscore)
 
 set.seed(123)
@@ -208,9 +202,9 @@ Heatmap(
 dev.off()
 
 
-##得到箱线图和不同Cluster的DMR-----------------------------------------------------------------------------------------------------------------------------
+
 boxpolt_df <- as.data.frame(mat) %>%
-  tibble::rownames_to_column(var = "ID") %>%   # 把行名变成一列叫 "ID"
+  tibble::rownames_to_column(var = "ID") %>%  
   left_join(cluster_assign, by = "ID") 
 
 
@@ -242,28 +236,27 @@ for (cluster_num in 1:opt$cluster) {
     x = "variable",
     y = "value",
     color = "variable",
-    fill = "variable",  # 填充颜色
-    alpha = 0.8,        # 透明度
-    palette = c("#00AFBB", "#E7B800", "#FC4E07", "#2E8B57", "#4682B4"),  # 更协调的配色
+    fill = "variable", 
+    alpha = 0.8,      
+    palette = c("#00AFBB", "#E7B800", "#FC4E07", "#2E8B57", "#4682B4"),  
     xlab = "Treatment Group",
     ylab = "Z-score",
     legend = "none",
-    outlier.shape = NA,  # 隐藏离群点（可选）
-    width = 0.7         # 箱体宽度
+    outlier.shape = NA,  
+    width = 0.7    
   ) +
     stat_summary(
       fun = median,
       geom = "point",
       shape = 21,
-      size = 5,          # 放大点尺寸
-      color = "black",   # 边框白色
-      fill = "white",    # 填充黑色
-      stroke = 1       # 边框粗细
+      size = 5,       
+      color = "black", 
+      fill = "white",    
+      stroke = 1     
     ) +
-    # 添加中值连线（关键新增部分）
     geom_line(
       data = median_data,
-      aes(x = variable, y = median_value, group = 1),  # group=1表示所有点连成一线
+      aes(x = variable, y = median_value, group = 1), 
       color = "black",
       linewidth = 0.5,
       linetype = "solid",
@@ -271,9 +264,9 @@ for (cluster_num in 1:opt$cluster) {
     ) +
     stat_boxplot(
       geom = "errorbar",
-      width = 0.25,      # 须线宽度
-      linewidth = 0.5,    # 须线粗细
-      color = "black"     # 须线颜色
+      width = 0.25,      
+      linewidth = 0.5,  
+      color = "black"   
     ) +
   scale_y_continuous(
     breaks = seq(-1.5, 1.5, 0.5),
@@ -291,7 +284,7 @@ for (cluster_num in 1:opt$cluster) {
       axis.ticks.length = unit(0.25, "cm"),
       legend.text = element_text(size = 8,face = "italic"),
       axis.text = element_text(size = 8,face = "italic"),
-      aspect.ratio = 0.618/1,  # 黄金比例
+      aspect.ratio = 0.618/1, 
       axis.line.x = element_blank(),
       panel.border = element_rect(colour = "black", fill = NA, linewidth = 0.8),
       axis.ticks.x = element_line(color = "black", linewidth = 1),
@@ -304,24 +297,23 @@ for (cluster_num in 1:opt$cluster) {
   
   print(p) 
   dev.off()
-  ##得到不同cluster的DMR--------------------------------------------------------------------------------------------------------  
-  
+ 
   Cluster_region <- MCHH_WML_nONA %>%
     left_join(
       Fiber_raw %>% 
-        # 将行名转换为列（假设行名是ID）
         tibble::rownames_to_column("ID") %>%  
         select(ID, seqnames, start, end),
-      by = "ID"  # 按ID匹配
+      by = "ID"  
     )
   
   write.table(
     Cluster_region,
     file = paste0(ID, "_Cluster_", cluster_num, ".bed"),
-    sep = "\t",            # 指定分隔符为制表符（BED格式要求）
-    row.names = FALSE,     # 不输出行名
-    quote = FALSE          # 不添加引号
+    sep = "\t",         
+    row.names = FALSE,   
+    quote = FALSE     
   )
 }
 
 ##---------------------------------------------------------------------------------------------------------------------------
+
