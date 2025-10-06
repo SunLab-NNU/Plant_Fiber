@@ -1,7 +1,5 @@
 # Fiber-seq in plants
 
-<br>
-
 ## Fiber-seq analysis workflow
 
 This workflow is used to run the **Fiber-seq** analysis workflow in different plants (such as ***Zea mays***, ***Arabidopsis thaliana*** etc.) to study chromatin structure, accessibility, and DNA methylation modifications.  
