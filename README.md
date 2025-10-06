@@ -1,25 +1,26 @@
 # Fiber-seq in plant
 
-## All conda virtual environment `yaml` files have been uploaded envs folder.
+<br>
 
 ## Fiber-seq analysis workflow
+<br>
+<br>
 
-This project is used to run the **Fiber-seq** analysis workflow in different plants (such as *Zea mays*, *Arabidopsis thaliana* etc.) to study chromatin structure, accessibility, and DNA methylation modifications.  
+This workflow is used to run the **Fiber-seq** analysis workflow in different plants (such as ***Zea mays***, ***Arabidopsis thaliana*** etc.) to study chromatin structure, accessibility, and DNA methylation modifications.  
 
 When running on a **SLURM** cluster, choose the corresponding script file according to the species.
 
-🔹 Example: Maize B73 Command
+🔹 Example: ***Zea mays*** B73 Command
 
 Run the following command in the terminal:
 
-
-        sbatch B73_V5.sh 251005 yumifibercj.bc2065.bc2065.HiFi.bam
+        sbatch Fiber-seq_Zeamays_B73.sh data sample.bam
 
 This generates a series of files, mainly including:
 
-1. Open chromatin regions: `*fire.bw`, `*percent.bw`
+1. Open chromatin signals: `*fire.bw`, `*percent.bw`
 
-2. Nucleosome regions: `*nuc.bw`, `*linker.bw`
+2. Nucleosome signals: `*nuc.bw`, `*linker.bw`
 
 3. 5mC methylation: `*CPG*.bw`
 
@@ -29,35 +30,38 @@ This generates a series of files, mainly including:
    
 6. Low-confidence peaks: `*fire-v0.1.1-01-fire-wide-peaks.bed`
 
+<br>
+<br>
+
 ## Fiber-seq differential analysis workflow
 
-Find Arabidopsis Fiber FIRE Peaks
-
-1. Run `FIRE_Peak_UpStream.sh`, e.g.:
+### 1. Run `FIRE_Peak_UpStream.sh`:
    
 
         sh FIRE_Peak_UpStream.sh 'sample1 sample2' 
          
 
-     (Requires the Peak_Diff_V1.R file and should be run in the base environment.)
+  Requires the Peak_Diff_V1.R file and should be run in the base environment.
 
-    #### Each p-value will generate two files, with intervals of 0.05 :
+  **Each p-value will generate two files at 0.05 intervals, containing BED files of the upregulated and downregulated peaks in the two samples.**
 
-   BED files of the upregulated and downregulated peaks in the two samples
+<br>
+<br>
 
-2. Run `Fiber_peak_diffbind_V1.R` (use `--help` to view the help information)  
+### 2. Run `Fiber_peak_diffbind_V1.R` (use `--help` to view the help information)  
 
-    It is generally recommended to use this script when there are more than three samples.
+It is generally recommended to use this script when there are more than three samples.
 
-    This will generate clustering heatmaps and boxplots based on z-scores.
+This will generate clustering heatmaps and boxplots based on z-scores.
 
-
+<br>
+<br>
 
 ## ATAC-seq analysis workflow
 
 When running on a **SLURM** cluster, choose the corresponding script file according to the species.
 
-🔹 Example: Arabidopsis Command
+🔹 Example: ***Arabidopsis thaliana*** Command
 
 When you want to process the files `sample_R1.fq.gz` and `sample_R2.fq.gz`
 
@@ -67,6 +71,8 @@ Run the following command in the terminal:
 
 A folder named `date_sample` will be generated, containing the corresponding open chromatin region `.bw` files for the sample.
 
+<br>
+<br>
 
 ## ATAC-seq callPeak workflow
 
@@ -76,6 +82,8 @@ To perform peak calling for the above ATAC-seq data, you can run the following c
         
 This will generate a folder named `date_sample_analysis`, which contains files with the peak counts.
 
+<br>
+<br>
 
 ## RNA-seq analysis workflow
 
@@ -83,13 +91,14 @@ When running on a **SLURM** cluster, choose the corresponding script file accord
 
 When you want to process the files `sample_R1.fq.gz` and `sample_R2.fq.gz`
 
-🔹 Example: Maize B73 Command
+🔹 Example: ***Zea mays*** B73 Command
     
         sbatch RNA-seq_Zeamays_B73.sh date sample
 
 This generates the .bw files of gene expression for the corresponding sample.
 
-
+<br>
+<br>
 
 ## Genome assembly workflow
 
@@ -103,14 +112,17 @@ Run the script:
 
 This generates the genome assembled from the input BAM file, as well as visualization plots comparing the newly assembled genome with the reference genome.
 
+<br>
+<br>
+
 ## Overlap
 
-1. `Get_IDOverlap.R` can be used to obtain the overlap between two gene ID files
+### 1. `Get_IDOverlap.R` can be used to obtain the overlap between two gene ID files
 
         Rscript Get_IDOverlap.R A.bed B.bed
 
         
-2. `Venn_Pvalue.R` can be used to obtain the overlap between two BED files. (use `--help` to view the help information)
+### 2. `Venn_Pvalue.R` can be used to obtain the overlap between two BED files. (use `--help` to view the help information)
 
 Options:
 
@@ -129,6 +141,9 @@ Options:
         -h, --help
                 Show this help message and exit
 
+<br>
+<br>
 
+## All conda virtual environment `yaml` files have been uploaded envs folder.
 
 
