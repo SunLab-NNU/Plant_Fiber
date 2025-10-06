@@ -25,27 +25,27 @@ echo "${sample}: Total bases=${total_length} bp" >> ${output_dir}/${ID}.log
 echo "depth=${coverage}X" >> ${output_dir}/${ID}.log
 
 ##----------------------------------------------------------------------------------------------------
-#samtools view -h -@ 32 ${sample} | awk '{len = length($10); count[len]++} END {for (l in count) print l, count[l]}' > ${output_dir}/${ID}_length.bed
+samtools view -h -@ 32 ${sample} | awk '{len = length($10); count[len]++} END {for (l in count) print l, count[l]}' > ${output_dir}/${ID}_length.bed
 
-#ft predict-m6a -k -t 52 ${output_dir}/${ID}_mapped.bam ${output_dir}/${ID}_m6A_nuc.bam 
+ft predict-m6a -k -t 52 ${output_dir}/${ID}_mapped.bam ${output_dir}/${ID}_m6A_nuc.bam 
 
-#ft fire -t 52 -s ${output_dir}/${ID}_m6A_nuc.bam ${output_dir}/${ID}_fire.bam
-#samtools index -@ 20 ${output_dir}/${ID}_fire.bam
+ft fire -t 52 -s ${output_dir}/${ID}_m6A_nuc.bam ${output_dir}/${ID}_fire.bam
+samtools index -@ 20 ${output_dir}/${ID}_fire.bam
 
-#for i in Chr{1..5}; do
-#    samtools view -@ 20 -b ${output_dir}/${ID}_fire.bam ${i} > ${output_dir}/${ID}_m6A_${i}.bam
-#    samtools index -@ 20 ${output_dir}/${ID}_m6A_${i}.bam
-#    ft fire -t 20 -e --all ${output_dir}/${ID}_m6A_${i}.bam ${output_dir}/${ID}_fire_${i}.bed
-#    bedtools sort -i ${output_dir}/${ID}_fire_${i}.bed > ${output_dir}/${ID}_fire_${i}_sorted.bed
-#    bgzip ${output_dir}/${ID}_fire_${i}_sorted.bed
-#    tabix -p bed ${output_dir}/${ID}_fire_${i}_sorted.bed.gz
-#done
+for i in Chr{1..5}; do
+    samtools view -@ 20 -b ${output_dir}/${ID}_fire.bam ${i} > ${output_dir}/${ID}_m6A_${i}.bam
+    samtools index -@ 20 ${output_dir}/${ID}_m6A_${i}.bam
+    ft fire -t 20 -e --all ${output_dir}/${ID}_m6A_${i}.bam ${output_dir}/${ID}_fire_${i}.bed
+  bedtools sort -i ${output_dir}/${ID}_fire_${i}.bed > ${output_dir}/${ID}_fire_${i}_sorted.bed
+   bgzip ${output_dir}/${ID}_fire_${i}_sorted.bed
+    tabix -p bed ${output_dir}/${ID}_fire_${i}_sorted.bed.gz
+done
 
-#ft pileup -o ${output_dir}/${ID}_m6A.pileup -m ${output_dir}/${ID}_fire.bam
-#awk 'NR > 1 { print $1, $2, $3, $9 / $4 }' ${output_dir}/${ID}_m6A.pileup > ${output_dir}/${ID}_m6A.bedgraph
-#awk '!/^(ChrC|ChrM)/' ${output_dir}/${ID}_m6A.bedgraph > ${output_dir}/${ID}_m6A_filtered.bedgraph
-#bedGraphToBigWig ${output_dir}/${ID}_m6A_filtered.bedgraph ${len}  ${output_dir}/${ID}_m6A.bigwig
-#mosdepth -t 52  ${output_dir}/${ID} ${output_dir}/${ID}_fire.bam
+ft pileup -o ${output_dir}/${ID}_m6A.pileup -m ${output_dir}/${ID}_fire.bam
+awk 'NR > 1 { print $1, $2, $3, $9 / $4 }' ${output_dir}/${ID}_m6A.pileup > ${output_dir}/${ID}_m6A.bedgraph
+awk '!/^(ChrC|ChrM)/' ${output_dir}/${ID}_m6A.bedgraph > ${output_dir}/${ID}_m6A_filtered.bedgraph
+bedGraphToBigWig ${output_dir}/${ID}_m6A_filtered.bedgraph ${len}  ${output_dir}/${ID}_m6A.bigwig
+mosdepth -t 52  ${output_dir}/${ID} ${output_dir}/${ID}_fire.bam
 
 conda activate base
 cd ${output_dir}
