@@ -1,10 +1,4 @@
-#!/bin/bash
-#sBATCH --job-name=ChIP_Ara
-#SBATCH --partition=tcum256c128Partition
-#SBATCH --nodes=1
-#SBATCH --ntasks-per-node=30
-#SBATCH --error=DBL_2024.9.16_HS-_%j.err
-#SBATCH --output=DBL_2024.9.16_HS-_%j.out
+
 
 input="${1}"
 hao="${2}"
