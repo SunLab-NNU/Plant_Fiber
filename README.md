@@ -29,34 +29,6 @@ This generates a series of files, mainly including:
    
 6. Low-confidence peaks: `*fire-v0.1.1-01-fire-wide-peaks.bed`
 
-
-
-## ChIP-seq Analysis Workflow
-
-When running on a **SLURM** cluster, choose the corresponding script file according to the species.
-
-🔹 Example: Maize B73 Command
-
-Run the following command in the terminal:
-    
-        sbatch Zea_Chr.sh 251005 ZZH_Ara_merge_rep2
-
-This generates the corresponding open chromatin region .bw files for the sample.
-
-`ZZH_Ara_merge_rep2` represents the identifier prefix of the `_R1.fq.gz` and `_R2.fq.gz` files.
-
-
-## RNA-seq Analysis Workflow
-
-When running on a **SLURM** cluster, choose the corresponding script file according to the species.
-
-🔹 Example: Maize B73 Command
-    
-        sbatch B73_RNAseq.sh 251005 250116_paper_ZJR_B73-CK0
-
-This generates the .bw files of gene expression for the corresponding sample.
-
-
 ## Fiber-seq Differential Analysis Workflow
 
 Find Arabidopsis Fiber FIRE Peaks
@@ -78,6 +50,45 @@ Find Arabidopsis Fiber FIRE Peaks
     It is generally recommended to use this script when there are more than three samples.
 
     This will generate clustering heatmaps and boxplots based on z-scores.
+
+
+
+## ATAC-seq Analysis Workflow
+
+When running on a **SLURM** cluster, choose the corresponding script file according to the species.
+
+🔹 Example: Arabidopsis Command
+
+When you want to process the files `sample_R1.fq.gz` and `sample_R2.fq.gz`
+
+Run the following command in the terminal:
+    
+        sbatch ATAC-seq_Arabidopsis_Col.sh date sample
+
+A folder named `date_sample` will be generated, containing the corresponding open chromatin region `.bw` files for the sample.
+
+
+## ATAC-seq CallPeak Workflow
+
+To perform peak calling for the above ATAC-seq data, you can run the following command:
+
+        sbatch ATAC-seq_CallPeak_Arabidopsis_Col.sh date_sample sample
+        
+This will generate a folder named `date_sample_analysis`, which contains files with the peak counts.
+
+
+## RNA-seq Analysis Workflow
+
+When running on a **SLURM** cluster, choose the corresponding script file according to the species.
+
+When you want to process the files `sample_R1.fq.gz` and `sample_R2.fq.gz`
+
+🔹 Example: Maize B73 Command
+    
+        sbatch B73_RNAseq.sh date sample
+
+This generates the .bw files of gene expression for the corresponding sample.
+
 
 
 ## Genome Assembly Workflow
