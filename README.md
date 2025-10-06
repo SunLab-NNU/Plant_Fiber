@@ -12,8 +12,7 @@ When running on a **SLURM** cluster, choose the corresponding script file accord
 
 Run the following command in the terminal:
 
-    ```bash
-    
+
         sbatch B73_V5.sh 251005 yumifibercj.bc2065.bc2065.HiFi.bam
 
 This generates a series of files, mainly including:
@@ -39,8 +38,6 @@ When running on a **SLURM** cluster, choose the corresponding script file accord
 🔹 Example: Maize B73 Command
 
 Run the following command in the terminal:
-
-    ```bash
     
         sbatch Zea_Chr.sh 251005 ZZH_Ara_merge_rep2
 
@@ -54,8 +51,6 @@ This generates the corresponding open chromatin region .bw files for the sample.
 When running on a **SLURM** cluster, choose the corresponding script file according to the species.
 
 🔹 Example: Maize B73 Command
-
-    ```bash
     
         sbatch B73_RNAseq.sh 251005 250116_paper_ZJR_B73-CK0
 
@@ -66,10 +61,11 @@ This generates the .bw files of gene expression for the corresponding sample.
 
 Find Arabidopsis Fiber FIRE Peaks
 
-1. Run `FIRE_Peak_UpStream.sh`, e.g.: 
+1. Run `FIRE_Peak_UpStream.sh`, e.g.:
+   
 
-         ```bash
-             sh FIRE_Peak_UpStream.sh 'sample1 sample2'
+        sh FIRE_Peak_UpStream.sh 'sample1 sample2' 
+         
 
      (Requires the Peak_Diff_V1.R file and should be run in the base environment.)
 
@@ -77,7 +73,7 @@ Find Arabidopsis Fiber FIRE Peaks
 
    BED files of the upregulated and downregulated peaks in the two samples
 
-2. Run `Fiber_peak_diffbind_V1.R` (use `--help` to view the help information)  
+3. Run `Fiber_peak_diffbind_V1.R` (use `--help` to view the help information)  
 
     It is generally recommended to use this script when there are more than three samples.
 
@@ -90,9 +86,8 @@ Activate the Assembly virtual environment
 
 Run the script:
 
-     ```bash
-     
-         sh Assemble_nohic.sh 251005 Control.fa sample.bam
+   
+        sh Assemble_nohic.sh 251005 Control.fa sample.bam 
 
 This generates the genome assembled from the input BAM file, as well as visualization plots comparing the newly assembled genome with the reference genome.
 
