@@ -1,4 +1,4 @@
-# Fiber-seq in plant
+# Fiber-seq in plants
 
 <br>
 
@@ -8,7 +8,7 @@ This workflow is used to run the **Fiber-seq** analysis workflow in different pl
 
 When running on a **SLURM** cluster, choose the corresponding script file according to the species.
 
-🔹 Example: ***Zea mays*** B73 Command
+🔹 Example: **Zea mays** B73 
 
 Run the following command in the terminal:
 
@@ -59,7 +59,7 @@ This will generate clustering heatmaps and boxplots based on z-scores.
 
 When running on a **SLURM** cluster, choose the corresponding script file according to the species.
 
-🔹 Example: ***Arabidopsis thaliana*** Command
+🔹 Example: **Arabidopsis thaliana**
 
 When you want to process the files `sample_R1.fq.gz` and `sample_R2.fq.gz`
 
@@ -89,7 +89,7 @@ When running on a **SLURM** cluster, choose the corresponding script file accord
 
 When you want to process the files `sample_R1.fq.gz` and `sample_R2.fq.gz`
 
-🔹 Example: ***Zea mays*** B73 Command
+🔹 Example: **Zea mays** B73 
     
         sbatch RNA-seq_Zeamays_B73.sh date sample
 
