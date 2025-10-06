@@ -1,12 +1,3 @@
-#!/bin/bash
-#sBATCH --job-name=test
-#SBATCH --partition=tcum256c128Partition
-#SBATCH --nodes=1
-#SBATCH --ntasks-per-node=52
-#SBATCH --error=test_%j.err
-#SBATCH --output=test_%j.out
-
-
 source ~/.bashrc
 conda init
 conda activate Fiberseq
