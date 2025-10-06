@@ -35,10 +35,10 @@ This generates a series of files, mainly including:
 
 ## Fiber-seq differential analysis workflow
 
-### 1. Run `FIRE_Peak_UpStream.sh`:
+### 1. Run `FIRE_Get_differential_peaks.sh`:
    
 
-        sh FIRE_Peak_UpStream.sh 'sample1 sample2' 
+        sh FIRE_Get_differential_peaks.sh 'sample1 sample2' 
          
 
   Requires the Peak_Diff_V1.R file and should be run in the base environment.
