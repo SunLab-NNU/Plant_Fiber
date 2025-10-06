@@ -74,7 +74,7 @@ A folder named `date_sample` will be generated, containing the corresponding ope
 <br>
 <br>
 
-## ATAC-seq callPeak workflow
+## ATAC-seq callpeak workflow
 
 To perform peak calling for the above ATAC-seq data, you can run the following command:
 
@@ -144,6 +144,19 @@ Options:
 <br>
 <br>
 
-## All conda virtual environment `yaml` files have been uploaded envs folder.
+## All software versions used in this workflow have been uploaded as Conda YAML files in the `envs` folder.
+
+<br>
+<br>
+
+## Acknowledgements
+
+We would like to thank all members of our research group for their helpful discussions and technical support during this project. We also acknowledge the developers of *Fibertools* for providing powerful tools that enabled the integration of long-read epigenetic and genetic analyses in our study. The following publication was referenced in this work:
+
+Jha, A., Bohaczuk, S. C., Mao, Y., Ranchalis, J., Mallory, B. J., Min, A. T., Hamm, M. O., Swanson, E., Dubocanin, D., Finkbeiner, C., Li, T., Whittington, D., Noble, W. S., Stergachis, A. B., & Vollger, M. R. (2024). DNA-m6A calling and integrated long-read epigenetic and genetic analysis with *Fibertools*. *Genome Research*. https://doi.org/10.1101/gr.279095.124
+
+
+
+
 
 
